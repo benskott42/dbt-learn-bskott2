@@ -1,5 +1,16 @@
 version: 2
 
+sources:
+  - name: jaffle_shop
+    database: raw
+    tables:
+      - name: orders
+      - name: customers
+  - name: stripe
+    database: raw
+    tables:
+      - name: payment
+
 models:
   - name: customers
     description: One record per customer
@@ -11,6 +22,15 @@ models:
           - not_null
       - name: first_order_date
         description: NULL when a customer has not yet placed an order.
+    
+  - name: orders
+    description: One record per order
+    columns:
+      - name: order_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
 
   - name: stg_customers
     description: This model cleans up customer data
@@ -40,7 +60,3 @@ models:
       - name: order_id
         tests:
           - not_null
-      - name: status
-        tests:
-          - accepted_values:
-              values: ['success']

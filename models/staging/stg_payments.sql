@@ -1,7 +1,6 @@
 select
+  id as payment_id,
   orderid as order_id,
-  (sum(amount))/ 100 as payment_total,
-  min(created) as order_date
+  amount / 100 as payment_total
    from raw.stripe.payment
    where status = 'success'
-  group by 1

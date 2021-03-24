@@ -1,6 +1,7 @@
 select p.order_id as order_id,
     o.customer_id,
     sum(p.payment_total) as payment_total,
+    -- some orders have multiple payments, this sums them by order
     min(order_date) as order_date
     from {{ ref('stg_payments') }} p
 left join {{ ref('stg_orders') }}  o on p.order_id = o.order_id

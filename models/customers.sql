@@ -29,6 +29,7 @@ customer_revenue as (
     select
         customer_id,
         sum(payment_total) as lifetime_value
+-- summing up payments from different orders by customer
     from orders
     group by 1
 ),
